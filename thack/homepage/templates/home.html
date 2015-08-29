@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <div class="container">
+            <a href="{% url "content:logout" %}" class="btn btn-primary">Logout</a>
+        </div>
+    {% else %}
+        <div class="container">
+            <h2>{{ user.username }}</h2>
+            <a href="/login/spotify/" class="btn btn-primary">Login com Spotify</a>
+        </div>
+    {% endif %}
+{% endblock %}
