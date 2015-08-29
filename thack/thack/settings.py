@@ -63,6 +63,7 @@ SOCIAL_AUTH_SPOTIFY_SECRET = 'ab13811de6f1400aa07ec4fe91595872'
 ROOT_URLCONF = 'thack.urls'
 
 LOGIN_URL = '/index'
+LOGIN_REDIRECT_URL = '/home'
 
 TEMPLATES = [
     {
