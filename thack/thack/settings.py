@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social.apps.django_app.default',
+    'homepage'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -60,6 +61,8 @@ SOCIAL_AUTH_SPOTIFY_KEY = 'c5d45a901015488ea4e7990a12c1b985'
 SOCIAL_AUTH_SPOTIFY_SECRET = 'ab13811de6f1400aa07ec4fe91595872'
 
 ROOT_URLCONF = 'thack.urls'
+
+LOGIN_URL = '/index'
 
 TEMPLATES = [
     {
@@ -110,8 +113,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-STATIC_ROOT = '/home/paulos/Documentos/work/thack/katana/thack'
+STATIC_ROOT = '//Users/caiooliveira/dev/workspace/katana/katana/thack'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    '/home/paulos/Documentos/work/thack/katana/thack/static',
+    '/Users/caiooliveira/dev/workspace/katana/katana/thack/static',
 )

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block description %}This page is an awesome home page.{% endblock %}
+
+{% block content %}
+	<div id="tilesBox" class="tiles margin-top-10">
+	</div>
+{% endblock %}
+
+{% block javascript %}
+	<script src="{% static 'assets/admin/layout/scripts/tripmusic.js' %}" type="text/javascript"></script>
+	<script>
+		jQuery(document).ready(function() {    
+			TripMusic.init(); // init layout
+		});
+	</script>
+{% endblock %}
