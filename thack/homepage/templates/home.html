@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% load static %}
-{% load spotify %}
 
 {% block title %}Home Page{% endblock %}
 
@@ -19,8 +18,4 @@
 {% block content %}
     <div id="tilesBox" class="tiles margin-top-10">
     </div>
-
-    {% with user|spotify as spotify %}
-        {{ spotify.me.id }}
-    {% endwith %}
 {% endblock %}

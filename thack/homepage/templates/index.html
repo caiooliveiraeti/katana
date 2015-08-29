@@ -1,4 +1,6 @@
 {% load static %}
+{% load spotify %}
+
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
@@ -28,10 +30,12 @@
 		
 
 		    {% if user.is_authenticated %}
+		    	{% with user|spotify as spotify %}
 		        <div class="container">
-		            <h2>{{ user.username }}</h2>
+		            <h2>{{ spotify.me.display_name }}</h2>
 		            <a href="/home" class="btn btn-lg btn-success spotify-btn">Vamos lá</a>
 		        </div>
+		        {% endwith %}
 		    {% else %}
 		    	<div class="container">
 		            <a href="/login/spotify/" class="btn btn-lg btn-success spotify-btn">Login com Spotify</a>
