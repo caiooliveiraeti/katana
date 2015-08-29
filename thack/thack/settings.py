@@ -51,8 +51,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
-SOCIAL_AUTH_AUTHENTICATION_BACKENDS = (
+AUTHENTICATION_BACKENDS = (
     'social.backends.spotify.SpotifyOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 SOCIAL_AUTH_SPOTIFY_KEY = 'c5d45a901015488ea4e7990a12c1b985'
@@ -71,6 +72,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social.apps.django_app.context_processors.backends',
+                'social.apps.django_app.context_processors.login_redirect',
             ],
         },
     },
@@ -107,4 +110,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
+STATIC_ROOT = '/home/paulos/Documentos/work/thack/katana/thack'
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    '/home/paulos/Documentos/work/thack/katana/thack/static',
+)
