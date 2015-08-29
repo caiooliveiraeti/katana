@@ -113,8 +113,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-STATIC_ROOT = '//Users/caiooliveira/dev/workspace/katana/katana/thack'
+STATIC_ROOT = '/opt/thack'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    '/Users/caiooliveira/dev/workspace/katana/katana/thack/static',
+    '/opt/thack/static',
 )
