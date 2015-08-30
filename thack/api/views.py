@@ -78,6 +78,6 @@ class ShowViewSet(viewsets.ModelViewSet):
         spotipy_api = spotipy.Spotify(auth=social_user.access_token)
         followed = spotipy_api.current_user_followed_artists()
         ids = [artist['id'] for artist in followed['artists']['items']]
-        return Show.objects.filter(artists__in=ids)
+        return Show.objects.filter(artists__spotify_id__in=ids)
 
 
