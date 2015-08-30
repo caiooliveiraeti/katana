@@ -63,7 +63,11 @@ class Show(models.Model):
     image = models.ImageField(upload_to='shows', null=True, blank=True)
 
     def __unicode__(self):
-        return u"{} at {} in {}".format(self.artist, self.city, self.datetime.strftime('%B'))
+        return u"{} at {} in {}".format(
+            self.artists.first(),
+            self.city,
+            self.datetime.strftime('%B')
+        )
 
 
 
