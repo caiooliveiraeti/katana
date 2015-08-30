@@ -6,10 +6,13 @@ register = template.Library()
 
 @register.filter(name='spotify')
 def spotify(user):
+    if not user.is_authenticated():
+        return None
+
     try:
         social_user = user.social_auth.get(provider='spotify')
     except user.DoesNotExist:
-        return ''
+        return None
 
     class SpotifyUser(object):
         def __init__(self, user):
