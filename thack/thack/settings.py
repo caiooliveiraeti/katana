@@ -66,7 +66,6 @@ SOCIAL_AUTH_SPOTIFY_SCOPE = ["user-follow-read"]
 SABRE_KEY = 'V1:57y25dp0wheui7uw:DEVCENTER:EXT'
 SABRE_SECRET = '0tBRifT7'
 
-
 ROOT_URLCONF = 'thack.urls'
 
 LOGIN_URL = '/index'

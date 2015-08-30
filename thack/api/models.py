@@ -1,13 +1,5 @@
 from django.db import models
 
-from sabreapi import Sabre
-
-sabre = Sabre(
-    client_id='V1:8y1tk3qc9kb9s0ta:DEVCENTER:EXT',
-    client_secret='hCfAs6B6'
-)
-
-
 class Country(models.Model):
     name = models.CharField(max_length=100)
     destination = models.BooleanField(default=False)
@@ -61,7 +53,7 @@ class Artist(models.Model):
 
 
 class Show(models.Model):
-    artist = models.ForeignKey(Artist)
+    artist = models.ManyToManyField(Artist)
     city = models.ForeignKey(City)
     datetime = models.DateTimeField()
     venue = models.TextField()
