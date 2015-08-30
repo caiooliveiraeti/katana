@@ -25,10 +25,10 @@ class EventFares(View):
         sabre = Sabre(settings.SABRE_KEY, settings.SABRE_SECRET)
         fares = sabre.api.v1.historical.flights.fares(
             origin=request.GET['origin'],
-            destination=request.GET['origin'],
+            destination=request.GET['destination'],
             earliestdeparturedate=request.GET['earliestdeparturedate'],
             latestdeparturedate=request.GET['latestdeparturedate'],
-            lengthofstay=7
+            lengthofstay=request.GET['lengthofstay']
         )
         return HttpResponse(json.dumps(fares), content_type='application/json')
 
