@@ -1,6 +1,7 @@
 from django.conf.urls import url, include
 from django.contrib.auth.models import User
-from views import ApiSample, EventsApi, EventFares, CountryViewSet, CityViewSet, AirportViewSet, ArtistViewSet
+from views import ApiSample, EventsApi, EventFares, CountryViewSet, CityViewSet, \
+    AirportViewSet, ArtistViewSet, ShowViewSet
 from rest_framework import routers
 from django.contrib.auth.decorators import login_required, permission_required
 
@@ -10,6 +11,7 @@ router.register(r'country', CountryViewSet)
 router.register(r'city', CityViewSet)
 router.register(r'airport', AirportViewSet)
 router.register(r'artist', ArtistViewSet)
+router.register(r'show', ShowViewSet)
 
 urlpatterns = [
     url(r'sample', login_required(ApiSample.as_view())),

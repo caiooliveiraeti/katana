@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from models import Country, City, Airport, Artist
+from models import Country, City, Airport, Artist, Show
 
 
 class CountrySerializer(serializers.ModelSerializer):
@@ -21,6 +21,17 @@ class AirportSerializer(serializers.ModelSerializer):
 
 
 class ArtistSerializer(serializers.ModelSerializer):
+    genres = serializers.SerializerMethodField()
+
+    def get_genres(self, obj):
+        return [genre.name for genre in obj.genres.all()]
+
     class Meta:
         model = Artist
-        fields = ('id', 'spotify_id', 'name')
+        fields = ('id', 'spotify_id', 'name', 'popularity', 'genres')
+
+
+class ShowSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Show
+        fields = ('id', 'city', 'lat', 'lon', 'datetime', 'artists', 'address', 'price', 'image')
