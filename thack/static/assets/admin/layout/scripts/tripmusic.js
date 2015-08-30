@@ -28,7 +28,6 @@ var TripMusic = function () {
 							'</div>');
 			});
 
-
 			$( "#tilesBox" ).append( items.join( "" ));
 		});
     }
