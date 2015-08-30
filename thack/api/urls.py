@@ -11,7 +11,7 @@ router.register(r'country', CountryViewSet)
 router.register(r'city', CityViewSet)
 router.register(r'airport', AirportViewSet)
 router.register(r'artist', ArtistViewSet)
-router.register(r'show', ShowViewSet)
+router.register(r'show', ShowViewSet, base_name='show')
 
 urlpatterns = [
     url(r'sample', login_required(ApiSample.as_view())),

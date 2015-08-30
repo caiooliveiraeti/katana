@@ -1,9 +1,8 @@
 import json, spotipy
 from django.http import HttpResponse
-from django.shortcuts import render
 from django.views.generic import View
 from rest_framework import viewsets
-from rest_framework.views import APIView
+from rest_framework import generics
 from django.conf import settings
 from models import Country, City, Airport, Artist, Show
 from sabreapi import Sabre
@@ -18,7 +17,7 @@ class ApiSample(View):
 class EventsApi(View):
     def get(self, request):
         social_user = request.user.social_auth.get(provider='spotify')
-        spotipy_api = spotipy.Spotify(auth=social_user.access_token)
+        spotipy_api = spotipy.spotify(auth=social_user.access_token)
         
         artists = self.find_artists(spotipy_api);
         events = self.find_events(artists)
@@ -55,9 +54,11 @@ class CountryViewSet(viewsets.ModelViewSet):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
 
+
 class CityViewSet(viewsets.ModelViewSet):
     queryset = City.objects.all()
     serializer_class = CitySerializer
+
 
 class AirportViewSet(viewsets.ModelViewSet):
     queryset = Airport.objects.all()
@@ -70,5 +71,13 @@ class ArtistViewSet(viewsets.ModelViewSet):
 
 
 class ShowViewSet(viewsets.ModelViewSet):
-    queryset = Show.objects.all()
     serializer_class = ShowSerializer
+
+    def get_queryset(self):
+        social_user = self.request.user.social_auth.get(provider='spotify')
+        spotipy_api = spotipy.Spotify(auth=social_user.access_token)
+        followed = spotipy_api.current_user_followed_artists()
+        ids = [artist['id'] for artist in followed['artists']['items']]
+        return Show.objects.filter(artists__in=ids)
+
+
