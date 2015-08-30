@@ -1,0 +1,1 @@
+mova as imagens da pasta show para ca.

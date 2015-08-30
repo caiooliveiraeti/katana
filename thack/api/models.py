@@ -47,6 +47,7 @@ class Artist(models.Model):
     spotify_id = models.CharField(max_length=60)
     genres = models.ManyToManyField(Genre)
     popularity = models.IntegerField(default=0)
+    image = models.URLField(blank=True, null=True)
 
     def __unicode__(self):
         return self.name
