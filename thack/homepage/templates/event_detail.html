@@ -67,11 +67,10 @@
 
 			$( "#body-detail-event #artist" ).append( artists.join( "" ));
 
-			$.getJSON( 'api/eventFares?origin=MOW&event_id=' + $("#event_id").val(), function( data ) {
+			$.getJSON( 'api/eventFares?origin=SFO&event_id=' + $("#event_id").val(), function( data ) {
 				$("#body-detail-event #fare").text(data);
-
-
-				$("#modal-travel-price").show();
+				
+				$("#modal-travel-price").show();	
 			});
 
 			$("#modal-travel").show();

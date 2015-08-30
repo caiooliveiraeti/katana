@@ -16,7 +16,7 @@ var TripMusic = function () {
 							'	</div>  ' +
 							'	<div class="tile-object">  ' +
 							'		<div class="name">  ' +
-										eventi.price  +
+							'			$' + eventi.price  +
 							'		</div>  ' +
 							'		<div class="number">  ' +
 										$.datepicker.formatDate('dd/mm/yy', new Date(eventi.datetime)) +
