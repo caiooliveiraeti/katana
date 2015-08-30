@@ -17,6 +17,9 @@ class Country(models.Model):
     def __unicode__(self):
         return self.name
 
+    class Meta(object):
+        verbose_name_plural = u'Countries'
+
 
 class City(models.Model):
     name = models.CharField(max_length=100)
@@ -25,6 +28,9 @@ class City(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    class Meta(object):
+        verbose_name_plural = u'Cities'
 
 
 class Airport(models.Model):
@@ -36,9 +42,19 @@ class Airport(models.Model):
         return self.name
 
 
+class Genre(models.Model):
+    name = models.CharField(max_length=200)
+    related = models.ManyToManyField('self')
+
+    def __unicode__(self):
+        return self.name
+
+
 class Artist(models.Model):
     name = models.CharField(max_length=100)
     spotify_id = models.CharField(max_length=60)
+    genres = models.ManyToManyField(Genre)
+    popularity = models.IntegerField(default=0)
 
     def __unicode__(self):
         return self.name
@@ -50,3 +66,6 @@ class Show(models.Model):
     datetime = models.DateTimeField()
     venue = models.TextField()
     tickets = models.URLField(blank=True, null=True)
+
+    def __unicode__(self):
+        return u"{} at {} in {}".format(self.artist, self.city, self.datetime.strftime('%B'))
