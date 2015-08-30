@@ -2,42 +2,47 @@
 {% load spotify %}
 
 
-<div id="header-detail-event" class="modal-header">
-     <h4 class="modal-title"></h4>
+<div class="modal-header">
+     <h4 id="header-detail-event" class="modal-title"></h4>
 </div>
 <div id="body-detail-event" class="modal-body">
+	<div id="artist">
+		
+	</div>
 
+	<div id="fare">
+		
+	</div>
 </div>
 <input type="hidden" name="event_id" id="event_id" value="{{ event_id }}"> 
 
 <script>
 	jQuery(document).ready(function() {
 		$.getJSON( "api/show/" + $("#event_id").val(), function( data ) {
-			var items = [];
-			$.each(data, function( key, eventi ) {
-				items.push( '<a data-toggle="modal" href="eventDetail?event_id=' + eventi.id + '" data-target="#myModal"> ' +
-							'<div class="tile double bg-blue-madison"> ' +
-							'	<div class="tile-body">  ' +
-							'		<img src="' + eventi.image + ' " alt="" width="60" height="60">   ' +
-							'		<h4>' + eventi.name + ' </h4>  ' +
-							'		<p> ' +
-							 			eventi.description +
-							'		</p> ' +
-							'	</div>  ' +
-							'	<div class="tile-object">  ' +
-							'		<div class="name">  ' +
-										eventi.price  +
-							'		</div>  ' +
-							'		<div class="number">  ' +
-										$.datepicker.formatDate('dd/mm/yy', new Date(eventi.datetime)) +
-							'		</div>  ' +
-							'	</div>  ' +
-							'</div></a>');
+			$("#header-detail-event").text(data.name);
+
+			var artists = [];
+			$.each(data.artists, function( key, artist ) {
+				artists.push( 
+					'<div class="media">' +
+					'	<div class="media-left media-middle">' +
+					'		<a href="#">' +
+					'			<img class="media-object" src="' + artist.name + '" alt="...">' +
+					'		</a>' +
+					'	</div>' +
+					'	<div class="media-body">' +
+					'		<h4 class="media-heading">' + artist.name + '</h4>' +
+					'	</div>' +
+					'</div>'
+				)
 			});
-			$( "#tilesBox" ).append( items.join( "" ));
+			$( "#body-detail-event #artist" ).append( artists.join( "" ));
+
+			$.getJSON( 'api/eventFares?origin=SFO&event_id=' + $("#event_id").val(), function( data ) {
+				
+
+				$("#body-detail-event #fare").text(data);
+			});
 		});
-
-
-
 	});
 </script>

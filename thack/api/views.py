@@ -1,4 +1,4 @@
-import json, spotipy
+import json, spotipy, datetime
 from django.http import HttpResponse
 from django.views.generic import View
 from rest_framework import viewsets
@@ -39,13 +39,14 @@ class EventsApi(View):
 
 class EventFares(View):
     def get(self, request):
+        event = Show.objects.get(id=request.GET['event_id'])
         sabre = Sabre(settings.SABRE_KEY, settings.SABRE_SECRET)
         fares = sabre.api.v1.historical.flights.fares(
             origin=request.GET['origin'],
-            destination=request.GET['destination'],
-            earliestdeparturedate=request.GET['earliestdeparturedate'],
-            latestdeparturedate=request.GET['latestdeparturedate'],
-            lengthofstay=request.GET['lengthofstay']
+            destination=event.city.iata,
+            earliestdeparturedate=(event.datetime - datetime.timedelta(days=7)).isoformat()[:10],
+            latestdeparturedate=event.datetime.isoformat()[:10],
+            lengthofstay=7
         )
         return HttpResponse(json.dumps(fares), content_type='application/json')
 
