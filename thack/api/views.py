@@ -43,8 +43,8 @@ class EventFares(View):
         sabre = Sabre(settings.SABRE_KEY, settings.SABRE_SECRET)
         fares = sabre.api.v1.historical.flights.fares(
             origin=request.GET['origin'],
-            destination=event.city.iata,
-            earliestdeparturedate=(event.datetime - datetime.timedelta(days=7)).isoformat()[:10],
+            destination=request.GET['destination'],
+            earliestdeparturedate=(event.datetime - datetime.timedelta(days=6)).isoformat()[:10],
             latestdeparturedate=event.datetime.isoformat()[:10],
             lengthofstay=7
         )
