@@ -34,7 +34,11 @@ class ArtistSerializer(serializers.ModelSerializer):
 class ShowSerializer(serializers.ModelSerializer):
     city = CitySerializer(many=False, read_only=True)
     artists = ArtistSerializer(many=True, read_only=True)
+    name = serializers.SerializerMethodField()
+
+    def get_name(self, obj):
+        return unicode(obj)
 
     class Meta:
         model = Show
-        fields = ('id', 'city', 'lat', 'lon', 'datetime', 'artists', 'address', 'price', 'image')
+        fields = ('id', 'name', 'description', 'city', 'lat', 'lon', 'datetime', 'artists', 'address', 'price', 'image')

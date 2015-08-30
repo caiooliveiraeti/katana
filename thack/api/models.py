@@ -61,6 +61,7 @@ class Show(models.Model):
     address = models.CharField(max_length=200)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     image = models.ImageField(upload_to='shows', null=True, blank=True)
+    description = models.TextField(blank=True, null=True)
 
     def __unicode__(self):
         return u"{} at {} in {}".format(
