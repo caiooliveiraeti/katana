@@ -23,4 +23,4 @@ class AirportSerializer(serializers.ModelSerializer):
 class ArtistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Artist
-        fields = ('id', 'spotify_id', 'name', '')
+        fields = ('id', 'spotify_id', 'name')

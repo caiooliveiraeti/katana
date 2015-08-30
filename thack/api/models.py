@@ -64,3 +64,6 @@ class Show(models.Model):
 
     def __unicode__(self):
         return u"{} at {} in {}".format(self.artist, self.city, self.datetime.strftime('%B'))
+
+
+

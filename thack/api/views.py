@@ -44,5 +44,5 @@ class CityViewSet(viewsets.ModelViewSet):
 
 
 class AirportViewSet(viewsets.ModelViewSet):
-	queryset = Airport.objects.all()
-	serializer_class = AirportSerializer
+    queryset = Airport.objects.all()
+    serializer_class = AirportSerializer
