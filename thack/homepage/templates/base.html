@@ -1,4 +1,6 @@
 {% load static %}
+{% load spotify %}
+{% with user|spotify as spotify %}
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
@@ -65,17 +67,6 @@
 			<!-- END RESPONSIVE MENU TOGGLER -->
 			<!-- BEGIN PAGE TOP -->
 			<div class="page-top">
-				<!-- BEGIN HEADER SEARCH BOX -->
-				<!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
-				<form class="search-form" action="extra_search.html" method="GET">
-					<div class="input-group">
-						<input type="text" class="form-control input-sm" placeholder="Search..." name="query">
-						<span class="input-group-btn">
-						<a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>
-						</span>
-					</div>
-				</form>
-				<!-- END HEADER SEARCH BOX -->
 				<!-- BEGIN TOP NAVIGATION MENU -->
 				<div class="top-menu">
 					<ul class="nav navbar-nav pull-right">
@@ -85,37 +76,17 @@
 						<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
 						<li class="dropdown dropdown-user dropdown-dark">
 							<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-							<span class="username username-hide-on-mobile">
-							{{ user.username }} </span>
-							<!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
-							<img alt="" class="img-circle" src="{% static 'assets/admin/layout/img/avatar9.jpg' %}"/>
+								<span class="username username-hide-on-mobile">
+									{{ spotify.me.display_name }}
+								</span>
+								<img alt="" class="img-circle" src="{{ spotify.me.images.0.url}}"/>
 							</a>
 							<ul class="dropdown-menu dropdown-menu-default">
 								<li>
-									<a href="extra_profile.html">
-									<i class="icon-user"></i> My Profile </a>
-								</li>
-								<li>
-									<a href="page_calendar.html">
-									<i class="icon-calendar"></i> My Calendar </a>
-								</li>
-								<li>
-									<a href="inbox.html">
-									<i class="icon-envelope-open"></i> My Inbox <span class="badge badge-danger">
-									3 </span>
-									</a>
-								</li>
-								<li>
-									<a href="page_todo.html">
-									<i class="icon-rocket"></i> My Tasks <span class="badge badge-success">
-									7 </span>
-									</a>
+									<a href="profile">
+									<i class="icon-user"></i> Meu perfil </a>
 								</li>
 								<li class="divider">
-								</li>
-								<li>
-									<a href="extra_lock.html">
-									<i class="icon-lock"></i> Lock Screen </a>
 								</li>
 								<li>
 									<a href="{% url 'content:logout' %}">
@@ -153,7 +124,7 @@
 					<li class="start active ">
 						<a href="home">
 						<i class="icon-home"></i>
-						<span class="title">Eventos</span>
+						<span class="title">Dashboard</span>
 						</a>
 					</li>
 					<li class="last ">
@@ -185,7 +156,7 @@
 				<div class="page-head">
 					<!-- BEGIN PAGE TITLE -->
 					<div class="page-title">
-						<h1>Eventos <small></small></h1>
+						<h1>{% block description %}{% endblock %}</h1>
 					</div>
 					<!-- END PAGE TITLE -->
 				</div>
@@ -266,3 +237,4 @@
 </body>
 <!-- END BODY -->
 </html>
+{% endwith %}
