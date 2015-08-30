@@ -5,9 +5,9 @@ from django.views.generic import View
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from django.conf import settings
-from models import Country, City, Airport
+from models import Country, City, Airport, Artist
 from sabreapi import Sabre
-from serializers import CountrySerializer, CitySerializer, AirportSerializer
+from serializers import CountrySerializer, CitySerializer, AirportSerializer, ArtistSerializer
 
 
 class ApiSample(View):
@@ -46,3 +46,8 @@ class CityViewSet(viewsets.ModelViewSet):
 class AirportViewSet(viewsets.ModelViewSet):
     queryset = Airport.objects.all()
     serializer_class = AirportSerializer
+
+
+class ArtistViewSet(viewsets.ModelViewSet):
+    queryset = Artist.objects.all()
+    serializer_class = ArtistSerializer
