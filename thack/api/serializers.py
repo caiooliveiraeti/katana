@@ -28,7 +28,7 @@ class ArtistSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Artist
-        fields = ('id', 'spotify_id', 'name', 'popularity', 'genres')
+        fields = ('id', 'spotify_id', 'name', 'popularity', 'genres', 'image')
 
 
 class ShowSerializer(serializers.ModelSerializer):
