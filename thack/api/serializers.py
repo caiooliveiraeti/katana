@@ -32,6 +32,9 @@ class ArtistSerializer(serializers.ModelSerializer):
 
 
 class ShowSerializer(serializers.ModelSerializer):
+    city = CitySerializer(many=False, read_only=True)
+    artists = ArtistSerializer(many=True, read_only=True)
+
     class Meta:
         model = Show
         fields = ('id', 'city', 'lat', 'lon', 'datetime', 'artists', 'address', 'price', 'image')
