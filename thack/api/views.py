@@ -5,7 +5,7 @@ from django.views.generic import View
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from django.conf import settings
-from models import Country, City, Airport, Artist
+from models import Country, City, Airport, Artist, Show
 from sabreapi import Sabre
 from serializers import CountrySerializer, CitySerializer, AirportSerializer, ArtistSerializer
 
@@ -30,7 +30,7 @@ class EventsApi(View):
         return Artist.objects.filter(spotify_id__in=ids)
 
     def find_events(self, artists):
-        return Show.objects.filter(artist__in=artists)
+        return Show.objects.filter(artists__in=artists)
 
     def event_to_json(self, events):
         events = [{"name": e.venue} for e in events]
