@@ -122,6 +122,7 @@ USE_TZ = True
 
 STATIC_ROOT = '/opt/thack'
 MEDIA_ROOT = '/opt/thack/static/media'
+MEDIA_URL = '/static/media/'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
