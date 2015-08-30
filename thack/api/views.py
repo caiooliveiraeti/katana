@@ -1,14 +1,13 @@
-import json
+import json, spotipy
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import View
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from django.conf import settings
-from models import Country, City, Airport
+from models import *
 from sabreapi import Sabre
-from serializers import CountrySerializer, CitySerializer, AirportSerializer
-
+from serializers import *
 
 class ApiSample(View):
     def get(self, request):
@@ -17,7 +16,25 @@ class ApiSample(View):
 
 class EventsApi(View):
     def get(self, request):
-        return HttpResponse(json.dumps(request.GET), content_type='application/json')
+        social_user = request.user.social_auth.get(provider='spotify')
+        spotipy_api = spotipy.Spotify(auth=social_user.access_token)
+        
+        artists = self.find_artists(spotipy_api);
+        events = self.find_events(artists)
+
+        return HttpResponse(self.event_to_json(events), content_type='application/json')
+
+    def find_artists(self, spotipy_api):
+        followed = spotipy_api.current_user_followed_artists();
+        ids = [artist['id'] for artist in followed['artists']['items']]
+        return Artist.objects.filter(spotify_id__in=ids)
+
+    def find_events(self, artists):
+        return Show.objects.filter(artist__in=artists)
+
+    def event_to_json(self, events):
+        events = [{"name": e.venue} for e in events]
+        return json.dumps({'events': events})
 
 
 class EventFares(View):
@@ -37,11 +54,9 @@ class CountryViewSet(viewsets.ModelViewSet):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
 
-
 class CityViewSet(viewsets.ModelViewSet):
     queryset = City.objects.all()
     serializer_class = CitySerializer
-
 
 class AirportViewSet(viewsets.ModelViewSet):
 	queryset = Airport.objects.all()
