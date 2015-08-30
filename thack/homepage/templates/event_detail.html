@@ -2,24 +2,51 @@
 {% load spotify %}
 
 
-<div class="modal-header">
-     <h4 id="header-detail-event" class="modal-title"></h4>
-</div>
-<div id="body-detail-event" class="modal-body">
-	<div id="artist">
-		
+<input type="hidden" name="event_id" id="event_id" value="{{ event_id }}"> 
+
+<div id="modal-travel" style="display: none">
+	<div class="modal-header">
+	    <h3 id="header-detail-event" class="modal-title" style="text-align: center;">Bob Geldof at Steamboat Springs in November</h3>
+		<h4 id="header-detail-event-sub" class="modal-title" style="text-align: center;">20/10/2015</h4>
 	</div>
 
-	<div id="fare">
+	<div id="body-detail-event" class="modal-body">
+		<div id="artist">
+			
+		</div>
+		<div id="modal-travel-price" style="display: none">
+			<div id="fare" style="text-align: center;width: 400px;margin: 0 auto;position: relative;">
+				<span style=" position: relative; top: -70px; right: -45px;">Ida</span>
+				<div id="ida" style="width: 70px;height: 75px;border-color: black;margin-right: 20px;border-style: solid;text-align: center;display: inline;display: inline-block;">
+					<span id="ida-dia" style="font-size: 36px;">31</span>
+					<span id="ida-mes">SET</span>
+				</div>
+
+				<span style=" position: relative; top: -70px; right: -54px;">Volta</span>
+			  	<div id="volta" style="width: 70px;height: 75px;border-color: black;margin-right: 20px;border-style: solid;text-align: center;display: inline;display: inline-block;">
+					<span id="volta-dia" style="font-size: 36px;">31</span>
+					<span id="volta-mes">SET</span>
+				</div>
+			</div>
+			<br>
+			<div id="price" style="text-align: center;width: 400px;margin: 0 auto;color: green;">
+				<span>$</span>
+				<span style="font-size: 40px;">5302,00</span>
+				<br><br>
+				<a href="#" class="btn btn-lg btn-success">Reservar Online</a>
+			</div>
+		</div>
+
 		
 	</div>
-</div>
-<input type="hidden" name="event_id" id="event_id" value="{{ event_id }}"> 
+<div>
+<input type="hidden" name="event_id" id="event_id" value="1208"> 
 
 <script>
 	jQuery(document).ready(function() {
 		$.getJSON( "api/show/" + $("#event_id").val(), function( data ) {
 			$("#header-detail-event").text(data.name);
+			$("#header-detail-event-sub").text($.datepicker.formatDate('dd/mm/yy', new Date(data.datetime)));
 
 			var artists = [];
 			$.each(data.artists, function( key, artist ) {
@@ -36,13 +63,18 @@
 					'</div>'
 				)
 			});
+
+
 			$( "#body-detail-event #artist" ).append( artists.join( "" ));
 
-			$.getJSON( 'api/eventFares?origin=SFO&event_id=' + $("#event_id").val(), function( data ) {
-				
-
+			$.getJSON( 'api/eventFares?origin=MOW&event_id=' + $("#event_id").val(), function( data ) {
 				$("#body-detail-event #fare").text(data);
+
+
+				$("#modal-travel-price").show();
 			});
+
+			$("#modal-travel").show();
 		});
 	});
 </script>
