@@ -1,11 +1,18 @@
-/**
-Demo script to handle the theme demo
-**/
-var TripMusic = function () {
+{% load static %}
+{% load spotify %}
 
-    // Handle Theme Settings
-    var handleInit = function () {
-    	$.getJSON( "api/show", function( data ) {
+
+<div id="header-detail-event" class="modal-header">
+     <h4 class="modal-title"></h4>
+</div>
+<div id="body-detail-event" class="modal-body">
+
+</div>
+<input type="hidden" name="event_id" id="event_id" value="{{ event_id }}"> 
+
+<script>
+	jQuery(document).ready(function() {
+		$.getJSON( "api/show/" + $("#event_id").val(), function( data ) {
 			var items = [];
 			$.each(data, function( key, eventi ) {
 				items.push( '<a data-toggle="modal" href="eventDetail?event_id=' + eventi.id + '" data-target="#myModal"> ' +
@@ -13,6 +20,9 @@ var TripMusic = function () {
 							'	<div class="tile-body">  ' +
 							'		<img src="' + eventi.image + ' " alt="" width="60" height="60">   ' +
 							'		<h4>' + eventi.name + ' </h4>  ' +
+							'		<p> ' +
+							 			eventi.description +
+							'		</p> ' +
 							'	</div>  ' +
 							'	<div class="tile-object">  ' +
 							'		<div class="name">  ' +
@@ -26,13 +36,8 @@ var TripMusic = function () {
 			});
 			$( "#tilesBox" ).append( items.join( "" ));
 		});
-    }
 
-    return {
-       //main function to initiate the theme
-        init: function() {
-        	handleInit();
-        }
-    };
 
-}();
+
+	});
+</script>
