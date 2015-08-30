@@ -16,13 +16,17 @@ def spotify(user):
             self.user = user
             self.api = spotipy.Spotify(auth=social_user.access_token)
             self._me = self.api.me()
-            self._pl = self.api.user_playlists(self._me['id'])
+            self._playlists = self.api.user_playlists(self._me['id'])
+            self._followed = self.api.current_user_followed_artists();
 
         def me(self):
             return self._me
 
         def playlists(self):
-            return self._pl
+            return self._playlists
+
+        def followed_lists(self):
+            return self._followed
 
     return SpotifyUser(user)
 
