@@ -1,11 +1,13 @@
 from django.conf.urls import url, include
 from django.contrib.auth.models import User
-from views import ApiSample, EventsApi, EventFares
+from views import ApiSample, EventsApi, EventFares, CountryViewSet, CityViewSet
 from rest_framework import routers
 from django.contrib.auth.decorators import login_required, permission_required
 
 router = routers.DefaultRouter()
 router.register(r'sample', ApiSample, base_name='sample')
+router.register(r'country', CountryViewSet)
+router.register(r'country', CityViewSet)
 
 urlpatterns = [
     url(r'sample', login_required(ApiSample.as_view())),
