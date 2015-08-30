@@ -15,7 +15,7 @@ class Country(models.Model):
 
 class City(models.Model):
     name = models.CharField(max_length=100)
-    country = models.ForeignKey(Country)
+    country = models.ForeignKey(Country, related_name='cities')
     iata = models.CharField(max_length=10)
 
     def __unicode__(self):
@@ -53,11 +53,14 @@ class Artist(models.Model):
 
 
 class Show(models.Model):
-    artist = models.ManyToManyField(Artist)
+    artists = models.ManyToManyField(Artist)
     city = models.ForeignKey(City)
     datetime = models.DateTimeField()
-    venue = models.TextField()
-    tickets = models.URLField(blank=True, null=True)
+    lat = models.CharField(max_length=20)
+    lon = models.CharField(max_length=20)
+    address = models.CharField(max_length=200)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    image = models.ImageField(upload_to='shows', null=True, blank=True)
 
     def __unicode__(self):
         return u"{} at {} in {}".format(self.artist, self.city, self.datetime.strftime('%B'))
