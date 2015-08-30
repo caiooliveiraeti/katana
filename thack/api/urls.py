@@ -1,6 +1,6 @@
 from django.conf.urls import url, include
 from django.contrib.auth.models import User
-from views import ApiSample, EventsApi, EventFares, CountryViewSet, CityViewSet, AirportViewSet
+from views import ApiSample, EventsApi, EventFares, CountryViewSet, CityViewSet, AirportViewSet, ArtistViewSet
 from rest_framework import routers
 from django.contrib.auth.decorators import login_required, permission_required
 
